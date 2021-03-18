@@ -44,8 +44,11 @@
   <text x="492" y="12" font-size="12" text-anchor="start" fill="red">512</text>
 
 
-  <path d="M390 224 A155 158, 0, 1, 1, 125 224 A90 90, 0, 1, 1, 175 175 A50 15, 0, 1, 1, 335 175 A90 90, 0, 1, 1, 390 224z" stroke-width="7" stroke="#000" fill="rbg(0, 0, 0)" opacity="1"/>
+  <path d="M390 224 A155 158, 0, 1, 1, 125 224 A90 90, 0, 1, 1, 175 175 A50 15, 0, 1, 1, 335 175 A90 90, 0, 1, 1, 390 224z" stroke-width="7" stroke="#000" fill="none" opacity="1"/>
 
+  <circle cx="0" cy="0" r="10" stroke="blue" fill="none">
+  <animateMotion dur="10s" path="M390 224 A155 158, 0, 1, 1, 125 224 A90 90, 0, 1, 1, 175 175 A50 15, 0, 1, 1, 335 175 A90 90, 0, 1, 1, 390 224z" repeatCount="indefinite" rotate="auto" /> 
+</circle>
 
 </svg>
     
