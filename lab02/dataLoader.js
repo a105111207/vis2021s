@@ -40,11 +40,11 @@ function dataLoader(text,cb) {
 		
 		//獲取html中的下拉式選單
 		//只要使用者更改選單欄位，就會用不同的欄位做為分層
-        var objectKeys = document.getElementById("ObjectKeys")
+        var objectKeys = '市區別'
+        objectKeys.value = '市區別'
 		for(var k in csvData[0]){
 			objectKeys.add(new Option(k, k))
 		}
-        objectKeys.value = '市區別'
 		cb()
     })
 }
