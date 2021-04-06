@@ -161,7 +161,7 @@
 				dataLoader('', function(){
 					dataClassifier(objectKeys.value, function(data, layers){
 						node = getNode(data, layers, treemapContainer)
-						treemapContainer.innerHTML = node.innerHTML
+						treemapContainer.appendChild(node)
 					}) 
 				})
 
