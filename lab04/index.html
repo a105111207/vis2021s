@@ -96,11 +96,13 @@ https://www.oxxostudio.tw/articles/201501/svg-d3-13-csv.html
                 .data(function (d, i) { return d; }).enter()
                 .append("td")
                 .text(function (d, i) {
-                    if ((d == 1 || d == 0) && (i == 4 || i == 5) || d == null) {
-                        /*dp[dpi] = d;
-                        dpi += 1;*/
+                    if ((d == 1 || d == 0) && (i == 4 || i == 5)) {
                         return null;
-                    } else { return d; }
+                    }
+                    else if (d == null && (i == 4 || i == 5)){
+                        return d;
+                    }
+                    else { return d; }
                 })
                 .append("img")
                 .attr("src", function (d, i) {
