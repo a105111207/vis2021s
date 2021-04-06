@@ -99,24 +99,21 @@ https://www.oxxostudio.tw/articles/201501/svg-d3-13-csv.html
                     if ((d == 1 || d == 0) && (i == 4 || i == 5)) {
                         return null;
                     }
-                    else if (d == null && (i == 4 || i == 5)){
-                        return d;
-                    }
                     else { return d; }
                 })
                 .append("img")
                 .attr("src", function (d, i) {
                     if (d == 1 && (i == 4 || i == 5)) return "./92.png";
-                    else if (d == 0 && (i == 4 || i == 5)) return "./93.png";
+                    else if (d == 0 && d != ""  && (i == 4 || i == 5)) return "./93.png";
                 })
                 .attr("x", "0")
                 .attr("y", "0")
                 .attr("width", function (d, i) {
-                    if ((d == 1 || d == 0) && (i == 4 || i == 5)) return "60";
+                    if ((d == 1 || d == 0) && (i == 4 || i == 5)  && d != "") return "60";
                     else return "0";
                 })
                 .attr("height", function (d, i) {
-                    if ((d == 1 || d == 0) && (i == 4 || i == 5)) return "60";
+                    if ((d == 1 || d == 0) && (i == 4 || i == 5) && d != "") return "60";
                     else return "0";
                 });
             ;
