@@ -3,7 +3,7 @@ var title = "treemap";
 
 function dataLoader(text,cb) {
 	//有些csv資料的seperator是使用分號，這邊統一使用逗號座分隔
-    var uri = "109.csv"
+    var uri = '109.csv'
     var dsv = d3.dsvFormat(",")
 
     d3.csv(uri, function(rawData){
@@ -44,7 +44,7 @@ function dataLoader(text,cb) {
 		for(var k in csvData[0]){
 			objectKeys.add(new Option(k, k))
 		}
-        objectKeys.value = '市區別'
+	
 		cb()
     })
 }
