@@ -79,11 +79,11 @@
 			<li><a href="https://www.d3-graph-gallery.com/graph/treemap_custom.html">Treemap customization in d3.js</a></li>
 			<li><a href="http://blog.infographics.tw/2015/10/d3js-tutorial-treemap-and-budget/">D3.js 實戰 － 利用 Treemap Layout 將政府預算視覺化</a></li>
 		</ul>
-
 		<div>
 			109年高雄市0825水災出動人車統計表
 		</div>
 		<div id="dropfile" for="csvfile">
+			
 		</div>
 		<div>
 			<select id="ObjectKeys">
@@ -143,7 +143,7 @@
 						var csvFile = files[0]
 
 						//讀取csv
-						var fr = "109.csv"
+						var fr = new FileReader()
 
                         fr.onload = function(){
                             dataLoader(fr.result, function(){
@@ -157,15 +157,13 @@
 						fr.readAsText(csvFile)
 					}
 				})*/
-				
+
 				dataLoader('', function(){
 					dataClassifier(objectKeys.value, function(data, layers){
 						node = getNode(data, layers, treemapContainer)
 						treemapContainer.appendChild(node)
 					}) 
 				})
-
-				
 			})
 		</script>
 
