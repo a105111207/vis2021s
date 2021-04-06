@@ -96,7 +96,7 @@ https://www.oxxostudio.tw/articles/201501/svg-d3-13-csv.html
                 .data(function (d, i) { return d; }).enter()
                 .append("td")
                 .text(function (d, i) {
-                    if ((d == 1 || d == 0) && (i == 4 || i == 5) || d == "") {
+                    if ((d == 1 || d == 0) && (i == 4 || i == 5) || d == null) {
                         /*dp[dpi] = d;
                         dpi += 1;*/
                         return null;
