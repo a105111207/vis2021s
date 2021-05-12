@@ -1,14 +1,121 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-  <head>
-    <meta charset="utf-8">
-    <title>D3 Page Template</title>
-    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+
+<head>
+	<meta charset="utf-8">
+	<title>Lab</title>
+	<script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+	<!-- v6.5
+    <c.0 -->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<style type="text/css">
+		div.bar {
+			border: 1px black solid;
+			padding: 1px;
+			margin: 5px 10px 5px 10px;
+			display: inline-block;
+			width: 20px;
+			height: 100px;
+			background-color: rgb(108, 82, 255);
+			vertical-align: bottom;
+		}
+
+
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+
+		}
+
+		body {
+			border: 1px red solid;
+			padding: 5px;
+
+			font-family: 'Noto Sans TC', sans-serif;
+		}
+	</style>
 </head>
+
 <body>
-    <script type="text/javascript">
-      // Your beautiful D3 code will go here
-    </script>
-  </body>
+
+
+	<script type="text/javascript">
+		// Your beautiful D3 code will go here
+		var parsedCSV = function (d) {
+			return {
+				goupRange: parseInt(d.組界),
+				times: parseInt(d.頻率)
+			};
+		}
+
+		d3.csv("data.csv", parsedCSV).then(function (data) {
+			data.forEach(function (d) {
+				d.goupRange = +d.goupRange;
+				d.times = +d.times;
+				return d;
+			});
+
+			var w = 1200;
+			var h = 600;
+			var padding = 5;
+			var map = d3.select("body")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h)
+				.style("margin", "10")
+
+			var gr = data.map((e) => e.goupRange);
+
+			var scaleX = d3.scaleBand()
+				.domain(d3.range(d3.min(gr), d3.max(gr) + 1))
+				.range([0, w - padding * 2])
+				.padding([0.1]);
+
+			var scaleY = d3.scaleLinear()
+				.domain([0, d3.max(data, (d) => d.times)])
+				.range([h - 2 * padding, 50]);
+
+
+			var axisX = d3.axisBottom(scaleX);
+			var axisY = d3.axisLeft(scaleY);
+
+			var g = map
+				.append('g');
+
+			g.selectAll("rect")
+				.data(data)
+				.enter()
+				.append("rect")
+				.attr("x", (d) => scaleX(d.goupRange))
+				.attr("y", (d) => scaleY(d.times))
+				.attr("height", (d) => h - scaleY(d.times))
+				.attr("width", scaleX.bandwidth())
+				.attr("fill", "skyblue")
+				.attr("transform", "translate(15, -20)")
+
+			map.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text")
+				.text((d) => d.times)
+				.attr("x", (d) => scaleX(d.goupRange))
+				.attr("y", (d) => scaleY(d.times))
+				.attr("transform", "translate(23, -20)")
+
+			map.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(13," + (h - 20) + ")")
+				.call(axisX);
+
+			map.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(20, -10)")
+				.call(axisY);
+
+
+		});
+
+	</script>
+
 </html>
-  
