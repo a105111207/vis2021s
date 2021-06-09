@@ -1,14 +1,224 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-  <head>
-    <meta charset="utf-8">
-    <title>D3 Page Template</title>
-    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Lab 8</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap');
+
+    @keyframes letterDraw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    h1,
+    div {
+      background-color: rgba(255, 255, 0, 0.1);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 24pt;
+      border: solid 1px black;
+      width: 90%;
+      margin: 5px auto;
+      padding: 10px;
+    }
+
+    div {
+      font-size: 12pt;
+    }
+
+    body {
+      background-color: rgba(255, 128, 255, 0.1);
+    }
+
+    video:hover {
+      box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 14;
+      stroke: #FFF;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: letterDraw 3s linear forwards;
+    }
+
+    #name1 .line {
+      clip-path: url('#clip1');
+    }
+
+    #name2 .line {
+      clip-path: url('#clip2');
+    }
+
+    #name3 .line {
+      clip-path: url('#clip3');
+    }
+
+    /*
+    .line-g {
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: letterDraw 5s linear forwards;
+      animation-duration: 5s;
+      animation-timing-function: linear;
+      animation-delay: 0s;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+      animation-name: letterDraw;
+    }
+    */
+  </style>
+  <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
 </head>
+
 <body>
-    <script type="text/javascript">
-      // Your beautiful D3 code will go here
-    </script>
-  </body>
+  <h1>
+    lab08 漢字書寫 (鉛筆字) (毛筆字也OK!) Path Animation
+  </h1>
+  <div>
+    限定使用 D3.js，參考以下影片。
+    <ul>
+      <li><a href="https://bl.ocks.org/basilesimon/f164aec5758d16d51d248e41af5428e4">Animate path in D3</a></li>
+      <li><a href="https://codepen.io/MyXoToD/post/howto-self-drawing-svg-animation">"Self-Drawing" SVG</a></li>
+      <li><a href="https://stackoverflow.com/questions/15275362/how-to-transition-a-path-in-d3-js">How to transition a
+          path in d3.js</a></li>
+      <li><a href="https://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works</a></li>
+      <li><a href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a></li>
+      <li><a href="https://www.hesyifei.com/">何一非</a></li>
+    </ul>
+  </div>
+
+  <div>
+    <video width="400" controls loop autoplay>
+      <source src="3.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div>
+    展示區 (姓名)
+    <hr>
+    <img width="256" src="./uni65B9_FZSJSK--GBK1-0.svg">
+    <img width="256" src="./uni4F51_FZSJSK--GBK1-0.svg">
+    <img width="256" src="./uni744B_FZSJSK--GBK1-0.svg">
+  </div>
+
+  <div>
+    Drag and Drop 展示區
+  </div>
+
+  <div>
+    <svg id="name1" width="300" height="300">
+      <clippath id="clip1">
+        <path class="clip1"
+          d="M112 14q6 2 13 2q13 1 27 12l-2 4q-3 0 -7 -1q-1 0 -1 -1q-5 0 -12 2h-3q-4 2 -14 4h-1q-3 1 -1 -1q5 -4 10 -9q5 -1 -10 -10q-3 -1 1 -2zM193 41q1 -5 4 -3q15 5 22 8q1 3 0 4q-4 0 -9 1h-9q-49 10 -67 42q0 3 1 4q2 0 3 -2q3 -3 7 -2q14 2 11 7q3 2 7 1q3 -4 5 -2
+        q1 1 3 2h5q5 1 13 4q-2 5 -3 5q-7 -2 -15 17q-13 29 -35 64q-11 15 -12 21q-2 6 -3 6q-4 0 -4 -7q-1 -7 -2 -15q-4 -12 -3 -25q0 -2 2 0q-1 11 7 26q1 4 3 4q1 0 3 -3q7 -10 15 -23q17 -26 25 -61q1 -9 -5 -9q-5 2 -10 1q-39 66 -89 97q-2 1 0 -1q55 -44 77 -97q1 -5 -2 -6
+        q-5 1 -5 -4q-6 -10 33 -37q4 -2 -2 -1q-79 23 -100 28q-10 3 -13 4t-5 1q-7 0 -17 -2q-3 0 -3 -1q1 -1 5 -2q67 -9 155 -38q4 -1 6 -4q0 -1 1 -2z" />
+      </clippath>
+    </svg>
+
+    <svg id="name2" width="300" height="300">
+      <clippath id="clip2">
+        <path class="clip2"
+          d="M88 23q8 4 16 19q0 1 -1 3q2 -1 0 1q-3 3 -7 10q-2 3 -2 4q0 7 -2 11l-2 4q-4 10 -4 19q-5 54 -3 93q0 12 12 17q10 8 14 13q3 2 -1 5q-5 4 -6 2q-5 -3 -7 -6q-13 -14 -20 -14h-2q-5 0 -4 -3q-3 -4 11 -8q-1 -22 -1 -31q-1 -13 -1 -25q0 -25 2 -58q-30 42 -61 69 q-5 4 -2 -2q43 -44 69 -92q10 -19 1 -28q-1 -1 -1 -2t2 -1zM163 17q3 5 8 7q4 3 2 6q-4 2 -11 47q20 -4 40 -7q7 -1 8 -4q3 -3 9 -1q0 1 1 1q10 3 15 2q6 4 2 7q-5 1 -14 -2q-2 0 -2 -1q-4 -1 -11 0h-2q-11 2 -36 7q-6 1 -11 2q-21 71 -65 110q-8 6 -2 -2q45 -45 60 -106 q-6 1 -23 6q-5 1 -7 1q-9 4 -21 -1q-3 -1 0 -2q25 -2 52 -8q3 -15 6 -35q0 -3 1 -7q1 -10 -1 -18q-3 -4 2 -2zM190 149q7 -3 15 1q3 3 7 5q2 1 4 1q3 1 3 4q0 2 -4 2q-8 1 -10 7l-16 18q19 -2 26 1q2 5 -3 6q-5 2 -15 -1q-3 -3 -27 2q-6 2 -5 -5q-1 -2 0 -3t4 -1q2 2 11 1 q13 -8 17 -26q1 -5 -1 -6q-2 -2 -7 0q-25 9 -34 7q-5 0 0 -2q10 -3 24 -7q7 -1 11 -4zM164 196q3 3 0 8h-5q-5 -4 -14 -12q-7 -3 -3 -8v-3v-3q-2 -5 -2 -13q0 -4 2 -1q7 28 22 32z" />
+      </clippath>
+    </svg>
+
+    <svg id="name3" width="300" height="300">
+      <clippath id="clip3">
+        <path class="clip3" transform="translate(0,12)"
+          d="M159 -9q9 7 8 8q-3 16 -6 29q6 1 35 -9q8 -3 21 2q2 1 1 3q0 2 -2 2q-5 0 -10 3q-26 15 -44 21q24 -6 29 -4q6 3 2 6q-46 4 -83 21q-7 3 -5 -1q2 -6 6 -6q0 2 4 -1q8 -3 27 -9q6 -8 11 -21q-14 3 -27 4q-3 -1 0 -2q7 -2 20 -5l8 -2q6 -32 3 -38q0 -3 2 -1zM170 115l-7 1 q-6 5 -2 26q14 -3 30 -5q-1 -5 8 -4q13 3 28 10q0 5 -5 4q-14 -7 -25 -7q-9 -1 -36 4q-2 8 -1 33q0 21 2 34q0 10 11 23q1 1 0 3q-2 1 -4 1q-8 -4 -15 -16q-6 -8 2 -10q3 0 3 -5q-2 -26 -4 -44q-1 -16 -1 -18q-38 8 -55 15q-5 1 -2 -1l12 -6q-1 -2 2 -4q15 -8 14 -20 q-2 -3 2 -1q3 5 6 6q3 3 3 4t-3 1q-4 1 -15 12q17 -5 36 -8q-2 -13 -3 -23q-10 3 -29 6q-6 0 0 -2l28 -8q-2 -4 -4 -9q-2 -1 2 -2q10 5 14 8q13 -2 18 -5q3 -3 15 0q3 1 0 2q-15 5 -23 8q-7 2 -2 -2q3 -1 0 -1zM63 78q-2 -4 2 -2q8 9 6 9q-1 3 -2 13v9q6 -3 16 -5q2 0 2 1 q1 2 -1 2q-8 6 -17 12q-1 2 -1 4q-2 25 0 32q14 -14 33 -35q7 -8 2 2q-37 45 -61 63q-14 11 -22 7q-4 0 1 -2q13 -2 39 -29q0 -12 -1 -14q-2 -3 2 -6l1 -10q0 2 1 -5q0 -4 -2 -2q-9 5 -20 5h-3q0 -1 3 -3q11 -4 23 -13q1 -14 1 -20q-1 -6 -2 -13zM175 70h3q2 -1 5 -2 q7 -1 15 3q2 1 1 2q0 1 -2 1q-15 5 -50 22q11 -1 21 -5q4 -4 12 -1q2 1 2 2q-1 2 -3 2q-7 1 -22 7q-5 3 -1 -1q2 -1 -3 -1q-9 3 -17 3q-5 0 -1 -2l8 -3q-2 -3 2 -3q5 -2 10 -5q20 -9 29 -16q1 -2 -2 -2q-3 1 -5 1q-16 3 -24 6q-10 4 -21 5q-6 0 -16 3q-2 1 -4 5q3 4 9 9 q4 3 5 5q0 4 -3 3q-1 0 -2 -1q-3 -4 -8 -7q-6 -5 -1 -10q-1 -3 4 -6q33 -12 59 -14zM160 33q-1 2 -4 7q-5 11 -7 15q17 -6 53 -30q2 -1 2 -3q-2 -2 -4 -2q-8 3 -20 7q-13 4 -20 6zM81 45q2 1 12 3q3 2 0 4q-9 -3 -34 9q-13 5 -24 3q-5 0 0 -1q12 -1 34 -10q6 -2 7 -6 q1 -2 5 -2z" />
+      </clippath>
+    </svg>
+  </div>
+
+  <script type="text/javascript">
+    // Your beautiful D3 code will go here
+
+    var da1 = ["m 107.12757,14.230453 c 0,0 40.59276,7.421066 45.79287,18.609053 3.65939,7.873156 -4.56104,-20.251029 -45.79287,5.38203", "m 13.995072,90.820058 c 0,0 29.671326,-3.096139 34.573545,-4.644208 4.902219,-1.548069 145.776513,-37.927694 145.776513,-37.927694 0,0 -9.99013,-17.390996 29.76412,6.122017 2.40471,1.583198 -10.58357,-6.655606 -22.88296,-5.485771 -12.2994,1.169834 -28.81214,7.878134 -28.81214,7.878134 0,0 -31.9383,15.658835 -38.91415,36.106605 -2.8377,8.317919 14.91908,5.691263 14.91908,5.691263 0,0 -17.02876,56.246516 -91.852106,109.396886", "m 148.41908,98.560404 c 0,0 -1.52567,8.547516 16.85195,3.907096 3.13911,-0.79263 30.20195,6.49053 22.95068,5.83799 -14.18722,-1.27671 -19.5862,19.68338 -29.92776,40.66823 -12.26135,24.88046 -28.56567,50.86875 -33.61193,55.04889 -9.72363,8.0547 -3.79304,40.45963 -6.06377,-1.866 -0.20421,-3.80637 -3.13247,-8.10664 -3.94805,-13.04775 -1.75789,-10.65006 -2.43724,-23.27195 -2.43724,-23.27195"];
+
+    var da2 = ["m 88,23 c 0,0 12.51636,13.385693 9.076928,19.769231 C 83.240588,68.449296 55.846153,111.07693 11.538462,154.46154", "m 85.692308,62.769231 c 0,0 3.955355,2.175807 1.997214,8.159018 -1.958142,5.983212 -4.351427,13.924565 -4.351427,13.924565 0,0 -3.698712,110.743796 -1.74057,112.266796 1.958141,1.523 -21.974703,4.35143 -21.974703,4.35143 0,0 18.928704,-3.91628 22.192274,-2.39328 3.26357,1.52299 30.459984,29.15455 30.459984,29.15455", "m 168.84362,17.840848 c 0,0 -1.92054,113.236072 -80.074389,176.928382", "M 103,89 210.18217,69.731607 c 0,0 5.22171,-3.481141 8.81164,-1.522999 3.58993,1.958142 23.4977,6.52714 24.69435,5.00414", "m 139.79785,156.97771 c 0,0 -0.87028,29.58969 26.65249,50.25897", "m 151.11156,163.50485 41.77369,-11.85764 c 0,0 6.74471,-0.65272 9.8995,3.58993 3.15478,4.24264 10.22585,3.69871 10.22585,3.69871 0,0 -9.24678,-1.523 -11.42249,3.8075 -2.17572,5.33049 -16.53542,25.67341 -16.53542,25.67341 l -23.42505,1.80081 c 0,0 53.37236,-1.67364 56.60467,1.8979"];
+
+    var da3 = ["M 31.816733,82.613546 96.071711,58.815405", "M 33.856574,144.48871 95.05179,111.85126", "M 66.833997,82.953519 64.454183,184.2656", "m 17.877822,211.80345 c 0,0 65.274904,-45.21646 89.073048,-89.07303", "m 122.24967,54.055777 82.61354,-21.7583 c 0,0 14.27889,1.699867 0,8.839309 -14.27888,7.139442 -44.87649,23.798141 -44.87649,23.798141", "m 162.70651,3.059761 c 0,0 -1.3599,49.976096 -18.01859,67.314741", "m 98.11155,88.053121 c 0,0 67.65472,-28.897743 104.37185,-25.498008", "m 107.63081,102.67198 19.71846,21.41833", "m 106.61089,100.97211 78.19389,-18.018591 c 0,0 12.23904,0 1.35989,6.119522 -10.87915,6.119522 -40.79681,20.398409 -40.79681,20.398409 0,0 -0.67994,1.01992 -0.33997,2.03984 0.33997,1.01992 -15.63878,4.41965 -15.63878,4.41965 l 58.13546,-12.91899", "m 113.75033,139.38911 c 0,0 77.51395,-18.35857 75.13413,-16.6587 -2.37981,1.69987 -22.77822,10.1992 -22.77822,10.1992", "m 131.76892,142.78884 c 0,0 -10.87915,16.6587 -16.65869,21.7583 -5.77955,5.09961 -25.837986,11.21913 -25.837986,11.21913 L 195.00398,151.62815 c 0,0 -0.33997,-3.7397 8.49934,-1.69986 8.83931,2.03984 26.51793,12.91899 26.51793,12.91899", "m 145.36786,117.63081 c 0,0 10.87915,9.51926 10.53918,15.63878 -0.33997,6.11952 3.73971,96.55246 3.73971,96.55246 0,0 -7.47942,-1.69987 -3.05976,4.41965 4.41965,6.11952 16.99867,19.37849 16.99867,19.37849"];
+
+
+    function nameCenter(d, classN, styleClass, animatStyle) {
+      for (let i = 0; i < d.length; i++) {
+        //setTimeout(function () {
+        d3.select(classN)
+          .append('g')
+          .attr('class', 'line')
+          .append('path')
+          .attr('class', styleClass)
+          .attr('fill', 'none')
+          .attr('stroke', 'black')
+          .attr('stroke-width', '10')
+          .attr('d', d[i])
+          .style('stroke-dasharray', '500')
+          .style('stroke-dashoffset', '500')
+          .style('animation', animatStyle)
+          .style('animation-duration', '5s')
+          .style('animation-timing-function', 'linear')
+          .style('animation-delay', '0s')
+          .style('animation-iteration-count', '1')
+          .style('animation-direction', 'normal')
+          .style('animation-fill-mode', 'forwards')
+          .style('animation-play-state', 'running')
+          .style('animation-name', 'letterDraw')
+          ;
+        //}, 3000);
+      }
+    }
+
+    /*
+    var clipData1 = "", clipData2 = "", clipData3 = "";
+    d3.text('uni65B9_FZSJSK--GBK1-0.svg', function (ndata) {
+      splitPath(clipData1, ndata, '#clipd1');
+    })
+    d3.text('uni4F51_FZSJSK--GBK1-0.svg', function (ndata) {
+      splitPath(clipData2, ndata, '#clipd2');
+    })
+
+    d3.text('uni744B_FZSJSK--GBK1-0.svg', function (ndata) {
+      splitPath(clipData3, ndata, '#clipd3');
+    })
+
+    function splitPath(d, fdata, pathId) {
+      var i;
+      for (i = 0; i < fdata.length; i++) {
+        if (fdata[i - 1] == '\"' && fdata[i] == 'M') {
+          break;
+        }
+      }
+
+      for (i; i < fdata.length; i++) {
+        if (fdata[i] == '\"' && fdata[i + 1] != 'M') {
+          break;
+        }
+        if (fdata[i] == "\n") {
+          i++;
+        }
+        d += fdata[i];
+      }
+
+      d3.select(pathId)
+        .append('clippath')
+        .attr('id', 'clip')
+        .append('path')
+        .attr('class', 'clip-g')
+        .attr('d', d)
+        ;
+      console.log(d);
+    }*/
+
+    nameCenter(da1, '#name1', 'line1', 'letterDraw .5s ease forwards');
+    nameCenter(da2, '#name2', 'line2', 'letterDraw .5s ease .5s forwards');
+    nameCenter(da3, '#name3', 'line3', 'letterDraw .5s ease .5s forwards');
+
+  </script>
+
 </html>
-  
