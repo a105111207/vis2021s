@@ -1,14 +1,267 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
-  <head>
+
+<html>
+
+<head>
     <meta charset="utf-8">
-    <title>D3 Page Template</title>
-    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+
+    <style>
+        html,
+        body {
+            height: 200%;
+        }
+
+        #training-section,
+        #testing-section {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #train-vs-test {
+            height: 100%;
+            position: fixed;
+            max-width: 100%;
+        }
+
+        .padding {
+            height: 100%;
+        }
+
+        #right {
+            width: 60%;
+            height: 100%;
+            position: relative;
+            float: right;
+        }
+
+        #left {
+            width: 40%;
+            height: 100%;
+            float: left;
+        }
+
+        #leftpic1 {
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+
+        #leftpic2 {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+
+        #leftpic3 {
+            width: 50%;
+            height: 80%;
+            float: left;
+        }
+    </style>
 </head>
+
 <body>
-    <script type="text/javascript">
-      // Your beautiful D3 code will go here
+
+
+    <div id="right">
+        <div id="train-vs-test"></div>
+    </div>
+
+    <div id="left">
+        <div id="training-section">
+            <h1>COVID-19/SARS B細胞表位預測</h1>
+            <h1>用於疫苗開發的表位預測</h1>
+            <br><br>
+            <h2>團隊成員:109598048 徐雋銘 ; 109598054 方佑瑋</h2>
+            <br><br>
+            <h3 style="margin-bottom: 50px;">
+                由未來(Future)公司發佈了Bell表位預測(Bcell epitope prediction)的數據集和樣本代碼，這是疫苗開發中的關鍵研究課題之一，可免費獲得。<br><br>
+                此資料集是在他們的研究過程中開發的，其中包含的資料來自IEDB和UniProt。他們簡要地描述了此數據集所涵蓋的
+                B 細胞表位預測。
+            </h3>
+
+            <div>
+                <img src="media/0.jpg" id="leftpic2">
+                <img src="media/1.jpg" id="leftpic2">
+                <img src="media/4.jpg" id="leftpic1">
+            </div>
+
+            …ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ
+
+            <h2 style="margin-top: 50px;">研究B細胞有什麼用?</h2>
+            <h3>
+                B細胞在體內誘導抗原特異性免疫反應，通過識別抗原蛋白的亞區（表位區）產生大量抗原特異性抗體。它們可以通過將抗體與抗原蛋白結合來抑制其功能。表位區域的預測有利於旨在誘導抗原特異性抗體產生的疫苗的設計和開發。他們相信這個數據集和代碼不僅對COVID-19有用，而且對未來的醫療數據分析也有廣泛的用處。
+            </h3>
+            <div><img src="media/2.jpg" id="leftpic1"></div>
+
+            …ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ
+
+            <h2 style="margin-top: 50px;">數據：</h2>
+            <h3>
+                關於氨基酸肽是否表現出抗體誘導活性（由活性標籤標記）的信息可以從 IEDB 獲得，IEDB
+                用於許多以前的研究。因此，該信息被用作標籤數據。<br><br>
+                他們還從 IEDB 中提供的 B細胞表位數據中獲得了表位候選氨基酸序列（肽）和活性標記數據。<br><br>
+                所提供的抗體蛋白僅限於構成 IEDB 中記錄最多的類型的IgG。為方便起見，他們從實驗中排除了代表同一肽的抗體活性的不同定量測量的記錄。<br><br>
+                從 IEDB獲得的表位數據對應於五種類型的活性：“陽性-高”、“陽性-中等”、“陽性-低”、“陽性”和“陰性”。
+            </h3>
+
+            <div>
+                <img src="media/5.jpg" id="leftpic2">
+                <img src="media/6.jpg" id="leftpic2">
+            </div>
+
+            <h1 style="margin-top: 50px;">訓練資料集內容:</h1>
+            <h2>244筆SARS資料(綠色),355筆COVID19資料(藍色)</h2><br>
+            <h1>每筆資料的屬性:</h1>
+            <h2>
+                1.parent_protein_id: 親本蛋白 ID (用來進行SARS和COVID19的二元分類)<br>
+                2.start_position: 肽段起始位置 <br>
+                3.end_position: 肽的末端位置<br>
+                4.chou_fasman: 肽特徵，β轉角<br>
+                5.emini: 肽特徵，相對表面可及性<br>
+                6.kolaskar_tongaonkar: 肽特徵，抗原性<br>
+                7.parker:肽特徵，疏水性
+            </h2>
+
+            <div>
+                <img src="media/9.jpg" id="leftpic2">
+                <img src="media/7.jpg" id="leftpic2">
+            </div>
+            …ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ
+            <br><br>
+            <h2>這是我們用來進行訓練的CSV檔 AAU93119:SARS ; 6VYB_A:COVID-19</h2>
+            <div>
+                <img src="media/7.PNG" id="leftpic2">
+                <img src="media/8.PNG" id="leftpic2">
+            </div>
+            …ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ…ೊ
+            <div>
+                <img src="media/14.jpg" id="leftpic1">
+                <img src="media/15.png" id="leftpic1">
+            </div>
+        </div>
+
+        <div id="testing-section">
+            <h1>測試資料集的部分<h1>
+                    <div><img src="media/16.jpg" id="leftpic1"></div>
+                    .<br><br>測試資料集內容:<br><br>
+                    170筆SARS的資料(綠色)<br> 230筆COVID19的資料(藍色)<br><br>
+                    <div><img src="media/17.jpeg" id="leftpic1"></div>
+                    .
+                </h1>
+                <br><br><br><br>
+                <h1>最後訓練出來分辨SARS和COVID19的準確率為:87.3%</h1>
+                <div>
+                    <img src="media/11.jpg" id="leftpic1">
+                    <img src="media/13.png" id="leftpic1">
+                    <img src="media/18.jpg" id="leftpic1">
+                </div>
+                <h1><br><br>我們的報告到此結束~~謝謝各位聆聽~~</h1>
+                <div><img src="media/12.png" id="leftpic1"></div>
+        </div>
+    </div>
+
+
+
+    <script src="./lib/d3.v3.min.js"></script>
+    <script src="./lib/binarydecisiontree.min.js"></script>
+
+    <script>
+        var Lipsum = "";
+
+        window.onload = function () {
+            function resizeRight() {
+                d3.select("#train-vs-test")
+                    .style("width", d3.select("#right").node().clientWidth + "px")
+                    ;
+            }
+
+            resizeRight();
+
+            d3.select(window)
+                .on("resize", function () { resizeRight() })
+                ;
+
+
+            /**
+             * 填版面，不然全部都是白色的很單調
+             * 這兩個 section 是要讓同學放說明資料和圖片的地方
+            */
+            /*
+             d3.select("#training-section")
+                 .selectAll("p")
+                 .data(d3.range(1, 2))
+                 .enter()
+                 .append("p")
+                 .text()
+             ;
+
+             d3.select("#testing-section")
+                 .selectAll("p")
+                 .data(d3.range(1, 10))
+                 .enter()
+                 .append("p")
+                 .text()
+             ;
+         	
+             d3.select("#training-section")
+                 .selectAll("img")
+                 .data(d3.range(1, 4))
+                 .enter()
+                 .append("img")
+                 .attr("src", function(d){ return "media/" + d + ".png"})
+                 .style('height', '350px')
+                 .style('width', '350px')
+             ;
+
+             d3.select("#testing-section")
+                 .selectAll("img")
+                 .data(d3.range(4, 7))
+                 .enter()
+                 .append("img")
+                 .attr("src", function(d){ return "media/" + d + ".png"})
+                 .style('height', '350px')
+                 .style('width', '350px')
+             ;
+         	
+             */
+
+            var bdt = new BinaryDecisionTree({
+                el: "#train-vs-test",
+                trainingSection: "#training-section",
+                testSection: "#testing-section",
+
+                /**
+                 * 預設會讓小球在上方排排站
+                 * 如果不要排排站的話，必須要把這個 paramater 設成 false
+                 * 如果要排排站的話，直接註解掉這行就行
+                */
+                //flood: false
+            });
+
+            bdt.setDataFromJson("https://raw.githubusercontent.com/Shi-Chun-Ming/Self/gh-pages/dataset.json", function () {
+                bdt.install();
+                bdt.play();
+            })
+
+            /**
+             * or
+             * bdt.setDataFromObject({ 
+             *  tree_data: tree_data,
+             *  tree_training_set: tree_training_set,
+             *  tree_stats: tree_stats, 
+             *  tree_test_set: tree_test_set, 
+             *  test_stats : test_stats
+             * })
+             * 同步函式，不需要 callback
+             * bdt.install();
+             * bdt.play();
+            */
+        }
     </script>
-  </body>
+
+</body>
+
+
+
 </html>
-  
